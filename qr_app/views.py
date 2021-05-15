@@ -17,8 +17,11 @@ def login(request):
         except Exception as e:
             error = "Invalid login credentials"
             print(e)
-    return render(request, 'login.html', {"error":error })
+    return render(request, 'login.html', {"error":error})
 
 
 def dashboard(request):
+    #create a user which will also create a qr for them
+    #create a url to mark attendance
+    
     return render(request, 'dash.html', {})
