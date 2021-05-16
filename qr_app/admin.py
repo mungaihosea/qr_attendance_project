@@ -1,3 +1,7 @@
 from django.contrib import admin
+from .models import Admin, Employee, Settings, Record
 
-# Register your models here.
+admin.site.register(Admin)
+admin.site.register(Employee)
+admin.site.register(Settings)
+admin.site.register(Record)
