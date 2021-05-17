@@ -11,6 +11,8 @@ class Employee(User):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
+    def __str__(self):
+        return self.username
 
 class Settings(models.Model):
     ip = models.GenericIPAddressField()
@@ -20,7 +22,9 @@ class Settings(models.Model):
         return self.ip
     
 class Record(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(Employee, on_delete=models.CASCADE)
+    username = models.CharField(max_length= 30, null = True)
+    email = models.EmailField(null = True)
     timestamp = models.DateTimeField(auto_now_add = True)
     activity = CharField(max_length=30, choices=[('check in', 'check in'), ('check out', 'check out')])
 

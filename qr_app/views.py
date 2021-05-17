@@ -3,7 +3,16 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login as login_user, logout as logout_user
 import requests
 from .models import Admin, Employee, Settings, Record
+from djqscsv import render_to_csv_response
 
+def index(request):
+
+    context = {
+        'port': Settings.objects.get().port,
+        'ip': Settings.objects.get().ip,
+        'employees':Employee.objects.all()
+    }
+    return render(request, 'index.html', context)
 
 def login(request):
     error = None
@@ -23,7 +32,13 @@ def login(request):
         except Exception as e:
             error = "Invalid login credentials"
             print(e)
-    return render(request, 'login.html', {"error":error})
+
+    context = {
+        'port': Settings.objects.get().port,
+        'ip': Settings.objects.get().ip,
+        "error":error,
+    }
+    return render(request, 'login.html', context)
 
 
 def dashboard(request):
@@ -78,6 +93,8 @@ def check_in(request, id):
     user = get_object_or_404(Employee, id = id)
     record = Record()
     record.user = user
+    record.username = user.username
+    record.email = user.email
     record.activity = "check in"
     record.save()
     context = {
@@ -98,3 +115,8 @@ def check_out(request, id):
         'record_activity': "check out"
     }
     return render(request, 'success.html', context)
+
+def download_csv(request):
+    qs = Record.objects.all().values('timestamp', 'activity', 'username', 'email')
+    print(qs)
+    return render_to_csv_response(qs)

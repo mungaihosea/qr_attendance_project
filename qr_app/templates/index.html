@@ -1,0 +1,46 @@
+{% extends 'base.html' %} 
+
+{% block content %}
+<div class="alert alert-primary mt-5">Search for your Record and scan your QR below</div>
+<table id="myTable" class="table display">
+    <thead>
+      <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for employee in employees %}
+      <tr data-bs-toggle="modal" data-bs-target="#viewemployee-{{employee.id}}">
+        <td>
+            <img style="float: left; width: 40px; margin-right: 10px;" src="data:image/png;base64,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">
+            <span class="text-primary">{{employee.username}}</span>
+        </td>
+        <td>
+            <span class="text-primary">{{employee.email}}</span>
+        </td>
+      </tr>
+      <!--viewing user Modal -->
+      <div class="modal fade" id="viewemployee-{{employee.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">QR code for {{employee.username}}</h5>
+
+                </button>
+                </div>
+                <div class="modal-body row">
+                    <div class="alert alert-primary">scan qr code to check in or check out</div>
+                    <img class="col" src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=http%3A%2F%2F{{ip}}:{{port}}/scan_page/{{employee.id}}&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="qr code" />
+                    <div class="col">
+                        <h5>{{employee.username}}</h5>
+                        <h5>{{employee.email}}</h5>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock content %}

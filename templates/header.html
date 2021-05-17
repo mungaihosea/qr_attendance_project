@@ -17,14 +17,19 @@
             <div class="modal-body">
                 <form action="{% url 'set_ip' %}" method="POST">{% csrf_token %}
                   <div class="alert alert-primary">Provide your network Ip address and port below.</div>
-                  <input class="form-control mt-2" type="text" name="ip" value={{ip}} placeholder="enter ip address">
-                  <input class="form-control mt-2" type="text" name="port" value={{port}} placeholder="enter port">
+                  <input class="form-control mt-2" type="text" name="ip" value="{{ip}}" placeholder="enter ip address">
+                  <input class="form-control mt-2" type="text" name="port" value="{{port}}" placeholder="enter port">
                   <button type="submit" class="btn btn-primary btn-sm mt-2">Save</button>
                 </form>
             </div>
           </div>
         </div>
       </div>
-      {% endif %} 
+      {% else %} 
+        <div class="d-flex">
+          <a href="{% url 'login' %}" class="btn btn-primary m-1">Admin Login</a>
+        </div>
+      {% endif %}
+      
     </div>
 </nav>

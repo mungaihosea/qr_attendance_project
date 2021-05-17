@@ -1,5 +1,10 @@
 {% extends 'base.html' %} 
 
-{% block content %} 
-welcome {{user.username}}
+{% block content %}
+
+<div style="margin-top: 100px; width: 100%; text-align: center;">
+    <h3>welcome {{user.username}}</h3>
+    <a href="{% url 'check_in' user.id %}" class="btn btn-dark">Check in</a>
+    <a href="{% url 'check_out' user.id %}" class="btn btn-dark">Check Out</a>
+</div>
 {% endblock content %}
